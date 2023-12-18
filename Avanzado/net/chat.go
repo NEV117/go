@@ -27,8 +27,8 @@ func HandleConnection(conn net.Conn) {
 	defer conn.Close()
 	message := make(chan string)
 	go MessageWrite(conn, message)
-	// Client1:2560 Platzi.com, 38
-	// platzi.com:38
+	// Client1:2560 domain.com, 38
+	// domain.com:38
 	clientName := conn.RemoteAddr().String()
 
 	message <- fmt.Sprintf("Welcome to the server, your name %s\n", clientName)

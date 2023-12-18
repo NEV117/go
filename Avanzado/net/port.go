@@ -24,7 +24,7 @@ var site = flag.String("site", "scanme.nmap.org", "url to scan")
 // EXECUTE WITH:
 // go run net/port.go --site=scanme.webscantest.com
 // go run file --site=site to scan the ports
-func maiinn() {
+func main() {
 	flag.Parse()
 	var wg sync.WaitGroup
 	for i := 0; i < 65535; i++ {

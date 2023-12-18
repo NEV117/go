@@ -57,7 +57,7 @@ func (w Worker) Start() {
 
 				fib := Fibonacci(job.Number)
 				time.Sleep(job.Delay)
-				fmt.Printf("Worker with id %d Finished with result %d", w.Id, fib)
+				fmt.Printf("Worker with id %d Finished with result fibo %d = %d\n", w.Id, job.Number, fib)
 
 			case <-w.QuitChan:
 				fmt.Printf("Worker with id %d Stopped\n", w.Id)
@@ -128,6 +128,7 @@ func RequestHandler(w http.ResponseWriter, r *http.Request, jobQueue chan Job) {
 	w.WriteHeader(http.StatusCreated)
 }
 
+// go run project/main.go
 func main() {
 	const (
 		maxWorkers   = 4
