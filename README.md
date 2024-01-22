@@ -1,83 +1,100 @@
-## Some go stuff and miny projects
+
 
 > [!WARNING]  
 > When running a Go file in your terminal, you may encounter antivirus alerts. This is typically due to the nature of Go's compilation process, which involves the creation of standalone executables.
 
+##  GO REST API + WEBSOCKETS
 
-### Miny projects
-This repository contains a set of simple projects made while learning go
-- Recursive Fibonnaci implementation
-- site open ports scanner
-- go chat
+The following is a project in which it is implemented an HTTP REST server using Go's standard library.
+
+It includes:
+
+- Basic CRUD operations
+- Authentication with a JSON Web Token (JWT)
+- Implementation of a WebSocket to notify the creation of a new post
+- Pagination of posts
+- Protected endpoints for insert, update, and delete operations
+- A Docker container for a PostgreSQL database
 
 
-### GO CHAT
-A simple Go Chat application. It uses the net package to create an HTTP server that listens for connections on a default port: 3090
+### Endpoints:
 
-In order to test this project you need to build the `netcat.go` and `chat.go` file in the `Avanzado` folder
-
-Build files:
+login 
 ```bash
-go build Avanzado/net/netcat.go
+http://localhost:5050/login
+```
+register:
+
+```bash
+http://localhost:5050/signup
+```
+json:
+```json
+{
+    "email":"test2@mail.com",
+    "password":"mypassword"
+}
+```
+---
+
+Protected endpoints (POST, PUT, DELETE)
+
+they need jwt bearer token
+
+Posts
+
+```bash
+localhost:5050/api/v1/posts
+```
+```bash
+localhost:5050/api/v1/posts/:id
+```
+json:
+```json
+{
+    "post_content": "brrrp this is a post"
+}
+```
+
+GetAll paged
+```bash
+localhost:5050/posts?page=0
+```
+
+GetById
+
+```bash
+localhost:5050/posts/:id
+```
+
+WebSocket
+```bash
+localhost:5050/ws
+```
+
+
+## Clone and Run
+Clone the project branch:
+
+```bash
+git clone https://github.com/NEV117/go/rest-websockets
+```
+
+Install dependencies:
+```bash
+go mod download
+```
+
+Build and run the database in Docker:
+```bash
+docker build . -t nev-ws-rest-db
 ```
 
 ```bash
-go build Avanzado/net/netcat.go
+docker run -p 54321:5432 nev-ws-rest-db
 ```
 
-run the .exe files:
-
- `first` chat.exe file 
+Run the project in the terminal:
 ```bash
-./Avanzado/chat
+go run main.go
 ```
-`second` netcat.exe file, on another terminal window(this would be the client)
-```bash
-./Avanzado/netcat
-```
-
-<p align="center">
-<img src="readmeImages/goChat (1).gif">
-</p>
-
-### PORT SCANNER
-Script that scans open ports of a remote server
-
-there's no need to build this one
-
-to run:
-```bash
-go run Avanzado/net/port.go --site= domain or server ip
-```
-
-test domain
-```bash
-go run Avanzado/net/port.go --site=scanme.webscantest.com
-```
-<p align="center">
-<img src="readmeImages/PortScanner.gif">
-</p>
-
-### WORKER POOL WITH FIBONACCI CALCULATION
-Implements a "worker pool" pattern to calculate numbers from the Fibonacci sequence concurrently. It also includes a simple HTTP server that accepts POST requests to calculate Fibonacci with specific delays. Below is an overview of the script and how to run it.
-
-To run:
-```bash
-go run Intermedio/project/main.go
-```
-
-Send a post request with the number to the following endpoint
-    
-    http://localhost:8081/fib
-
-The post request needs a name a value and a request:
-
-<p align="center">
-<img src="readmeImages/fiboRequest.JPG">
-</p>
-
-The result will apaer in the treminal where you run the script:
-
-<p align="center">
-<img src="readmeImages/fiboGo (1).gif">
-</p>
